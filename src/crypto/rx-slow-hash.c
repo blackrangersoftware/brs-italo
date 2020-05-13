@@ -83,10 +83,7 @@ static inline int force_software_aes(void)
 {
   static int use = -1;
 
-  if (use != -1)
-    return use;
-
-  const char *env = getenv("MONERO_USE_SOFTWARE_AES");
+  const char *env = getenv("MONERO_RANDOMX_UMASK");
   if (!env) {
     use = 0;
   }

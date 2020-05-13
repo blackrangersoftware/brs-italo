@@ -1,10 +1,9 @@
 name: italo
 version: 0.11.1.0-1
-summary: "Italo: the secure, private, untraceable cryptocurrency https://getitalo.org"
+summary: "ITALO is a revolutionary video platform in which publishers can make money with their content, without ads. https://italo.network"
 description: |
-    Italo is a private, secure, untraceable, decentralised digital currency.
-    You are your bank, you control your funds, and nobody can trace your transfers
-    unless you allow them to do so.
+    ITALO coin is a digital cryptocurrency. Initially, at the genesis of the ITALO blockchain, the maximum number of coins minable is set to 18 Millions coins.
+    Revenues from co-mining are passed on to the viewers and on to the copyright holders as content is consumed on the platform.
 grade: devel
 confinement: strict
 
