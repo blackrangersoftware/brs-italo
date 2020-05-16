@@ -10,8 +10,6 @@ Portions Copyright (c) 2012-2013 The Cryptonote developers.
   - [Research](#research)
   - [Announcements](#announcements)
   - [Translations](#translations)
-  - [Build Status](#build-status)
-    - [IMPORTANT](#important)
   - [Coverage](#coverage)
   - [Introduction](#introduction)
   - [About this project](#about-this-project)
@@ -29,11 +27,20 @@ Portions Copyright (c) 2012-2013 The Cryptonote developers.
 
 ## Development resources
 
+<<<<<<< HEAD
 - Web: [italo.network](https://italo.network)
 - Forum: [forum.italo.network](https://forum.italo.network)
 - Mail: [dev@italo.network](mailto:dev@italo.network)
 - GitHub: [https://github.com/italocoin-project/italo](https://github.com/italocoin-project/italo)
 - IRC: [#italo-dev on Freenode](http://webchat.freenode.net/?randomnick=1&channels=%23italo-dev&prompt=1&uio=d4)
+=======
+- Web: [getitalo.org](https://getitalo.org)
+- Forum: [forum.getitalo.org](https://forum.getitalo.org)
+- Mail: [dev@getitalo.org](mailto:dev@getitalo.org)
+- GitHub: [https://github.com/italo-project/italo](https://github.com/italo-project/italo)
+- IRC: [#italo-dev on Freenode](https://webchat.freenode.net/?randomnick=1&channels=%23italo-dev&prompt=1&uio=d4)
+- It is HIGHLY recommended that you join the #italo-dev IRC channel if you are developing software that uses Monero. Due to the nature of this open source software project, joining this channel and idling is the best way to stay updated on best practices and new developments in the Monero ecosystem. All you need to do is join the IRC channel and idle to stay updated with the latest in Monero development. If you do not, you risk wasting resources on developing integrations that are not compatible with the Monero network. The Monero core team and community continuously make efforts to communicate updates, developments, and documentation via other platforms – but for the best information, you need to talk to other Monero developers, and they are on IRC. #italo-dev is about Monero development, not getting help about using Monero, or help about development of other software, including yours, unless it also pertains to Monero code itself. For these cases, checkout #italo. 
+>>>>>>> italo/master
 
 ## Vulnerability response
 
@@ -52,6 +59,14 @@ Our researchers are available on IRC in [#italo Dev on Freenode](https://webchat
 
 - You can subscribe to an (LIST COMMING SOON) to get critical announcements from the Italo core team. The announcement list can be very helpful for knowing when software updates are needed.
 
+<<<<<<< HEAD
+=======
+## Translations
+The CLI wallet is available in different languages. If you want to help translate it, see our self-hosted localization platform, Weblate, on [translate.getitalo.org]( https://translate.getitalo.org/projects/italo/cli-wallet/). Every translation *must* be uploaded on the platform, pull requests directly editing the code in this repository will be closed. If you need help with Weblate, you can find a guide with screenshots [here](https://github.com/italo-ecosystem/italo-translations/blob/master/weblate.md).
+&nbsp;
+
+If you need help/support/info about translations, contact the localization workgroup. You can find the complete list of contacts on the repository of the workgroup: [italo-translations](https://github.com/italo-ecosystem/italo-translations#contacts).
+>>>>>>> italo/master
 
 ## Coverage
 
@@ -112,6 +127,7 @@ Dates are provided in the format YYYY-MM-DD.
 
 | Software upgrade block height  | Date       | Fork version      | Minimum Italo version | Recommended Italo version | Details                                                                            |  
 | ------------------------------ | -----------| ----------------- | ---------------------- | -------------------------- | ---------------------------------------------------------------------------------- |
+<<<<<<< HEAD
 | 3000                           | 2018-03-28 | v2                | v11.0.0                | v11.0.0                    | Allow only RingCT transactions, allow only >= ringsize 5       |
 | 5000                           | 2018-04-02 | v7                | v11.1.0                | v11.1.0                    | Cryptonight variant 1, Adjusted minimum blocksize and fee algorithm  |
 | 5700                           | 2018-04-08 | v8                | v12.0.0                | v12.0.0                    | ringsize >= 7, sorted inputs, bulletproofs |
@@ -120,9 +136,24 @@ Dates are provided in the format YYYY-MM-DD.
 | 165000                         | 2018-12-05 | v11               | v13.0.0                | v13.0.4                    | Bug Fixes, Bulletproofs PAD, Fee per byte...  |
 | 324000                         | 2019-07-15 | v12               | v14.0.0                | v14.0.4                    | New PoW based on Cryptonight-R, New block weight algorithm, New slightly more efficient RingCT format...  |
 | 465000                         | 2020-01-27 | v13               | v15.0.0                | v15.0.0                    | New PoW based on random instructions, adapted to CPUs, New daemon RPC: flush_cache, get_public_nodes, set_bootstrap_daemon, Verification speedups...  |
+=======
+| 1009827                        | 2016-03-22 | v2                | v0.9.4                 | v0.9.4                     | Allow only >= ringsize 3, blocktime = 120 seconds, fee-free blocksize 60 kb       |
+| 1141317                        | 2016-09-21 | v3                | v0.9.4                 | v0.10.0                    | Splits coinbase into denominations  |
+| 1220516                        | 2017-01-05 | v4                | v0.10.1                | v0.10.2.1                  | Allow normal and RingCT transactions |
+| 1288616                        | 2017-04-15 | v5                | v0.10.3.0              | v0.10.3.1                  | Adjusted minimum blocksize and fee algorithm      |
+| 1400000                        | 2017-09-16 | v6                | v0.11.0.0              | v0.11.0.0                  | Allow only RingCT transactions, allow only >= ringsize 5      |
+| 1546000                        | 2018-04-06 | v7                | v0.12.0.0              | v0.12.3.0                  | Cryptonight variant 1, ringsize >= 7, sorted inputs
+| 1685555                        | 2018-10-18 | v8                | v0.13.0.0              | v0.13.0.4                  | max transaction size at half the penalty free block size, bulletproofs enabled, cryptonight variant 2, fixed ringsize [11](https://youtu.be/KOO5S4vxi0o)
+| 1686275                        | 2018-10-19 | v9                | v0.13.0.0              | v0.13.0.4                  | bulletproofs required
+| 1788000                        | 2019-03-09 | v10               | v0.14.0.0              | v0.14.1.2                  | New PoW based on Cryptonight-R, new block weight algorithm, slightly more efficient RingCT format
+| 1788720                        | 2019-03-10 | v11               | v0.14.0.0              | v0.14.1.2                  | forbid old RingCT transaction format
+| 1978433                        | 2019-11-30* | v12                | v0.15.0.0              | v0.15.0.0                  | New PoW based on RandomX, only allow >= 2 outputs, change to the block median used to calculate penalty, v1 coinbases are forbidden, rct sigs in coinbase forbidden, 10 block lock time for incoming outputs
+| XXXXXXX                        | XXX-XX-XX | XXX                | vX.XX.X.X              | vX.XX.X.X                  | XXX |
+>>>>>>> italo/master
 
 X's indicate that these details have not been determined as of commit date.
-* indicates estimate as of commit date
+
+\* indicates estimate as of commit date
 
 ## Release staging schedule and protocol
 
@@ -141,31 +172,31 @@ sources are also used for statically-linked builds because distribution
 packages often include only shared library binaries (`.so`) but not static
 library archives (`.a`).
 
-| Dep          | Min. version  | Vendored | Debian/Ubuntu pkg    | Arch pkg     | Fedora              | Optional | Purpose         |
-| ------------ | ------------- | -------- | -------------------- | ------------ | ------------------- | -------- | --------------- |
-| GCC          | 4.7.3         | NO       | `build-essential`    | `base-devel` | `gcc`               | NO       |                 |
-| CMake        | 3.5           | NO       | `cmake`              | `cmake`      | `cmake`             | NO       |                 |
-| pkg-config   | any           | NO       | `pkg-config`         | `base-devel` | `pkgconf`           | NO       |                 |
-| Boost        | 1.58          | NO       | `libboost-all-dev`   | `boost`      | `boost-devel`       | NO       | C++ libraries   |
-| OpenSSL      | basically any | NO       | `libssl-dev`         | `openssl`    | `openssl-devel`     | NO       | sha256 sum      |
-| libzmq       | 3.0.0         | NO       | `libzmq3-dev`        | `zeromq`     | `zeromq-devel`      | NO       | ZeroMQ library  |
-| OpenPGM      | ?             | NO       | `libpgm-dev`         | `libpgm`     | `openpgm-devel`     | NO       | For ZeroMQ      |
-| libnorm[2]   | ?             | NO       | `libnorm-dev`        |              |                     | YES      | For ZeroMQ      |
-| libunbound   | 1.4.16        | YES      | `libunbound-dev`     | `unbound`    | `unbound-devel`     | NO       | DNS resolver    |
-| libsodium    | ?             | NO       | `libsodium-dev`      | `libsodium`  | `libsodium-devel`   | NO       | cryptography    |
-| libunwind    | any           | NO       | `libunwind8-dev`     | `libunwind`  | `libunwind-devel`   | YES      | Stack traces    |
-| liblzma      | any           | NO       | `liblzma-dev`        | `xz`         | `xz-devel`          | YES      | For libunwind   |
-| libreadline  | 6.3.0         | NO       | `libreadline6-dev`   | `readline`   | `readline-devel`    | YES      | Input editing   |
-| ldns         | 1.6.17        | NO       | `libldns-dev`        | `ldns`       | `ldns-devel`        | YES      | SSL toolkit     |
-| expat        | 1.1           | NO       | `libexpat1-dev`      | `expat`      | `expat-devel`       | YES      | XML parsing     |
-| GTest        | 1.5           | YES      | `libgtest-dev`[1]    | `gtest`      | `gtest-devel`       | YES      | Test suite      |
-| Doxygen      | any           | NO       | `doxygen`            | `doxygen`    | `doxygen`           | YES      | Documentation   |
-| Graphviz     | any           | NO       | `graphviz`           | `graphviz`   | `graphviz`          | YES      | Documentation   |
-| lrelease     | ?             | NO       | `qttools5-dev-tools` | `qt5-tools`  | `qt5-linguist`      | YES      | Translations    |
-| libhidapi    | ?             | NO       | `libhidapi-dev`      | `hidapi`     | `hidapi-devel`      | YES      | Hardware wallet |
-| libusb       | ?             | NO       | `libusb-dev`         | `libusb`     | `libusb-devel`      | YES      | Hardware wallet |
-| libprotobuf  | ?             | NO       | `libprotobuf-dev`    | `protobuf`   | `protobuf-devel`    | YES      | Hardware wallet |
-| protoc       | ?             | NO       | `protobuf-compiler`  | `protobuf`   | `protobuf-compiler` | YES      | Hardware wallet |
+| Dep          | Min. version  | Vendored | Debian/Ubuntu pkg    | Arch pkg     | Void pkg           | Fedora pkg          | Optional | Purpose         |
+| ------------ | ------------- | -------- | -------------------- | ------------ | ------------------ | ------------------- | -------- | --------------- |
+| GCC          | 4.7.3         | NO       | `build-essential`    | `base-devel` | `base-devel`       | `gcc`               | NO       |                 |
+| CMake        | 3.5           | NO       | `cmake`              | `cmake`      | `cmake`            | `cmake`             | NO       |                 |
+| pkg-config   | any           | NO       | `pkg-config`         | `base-devel` | `base-devel`       | `pkgconf`           | NO       |                 |
+| Boost        | 1.58          | NO       | `libboost-all-dev`   | `boost`      | `boost-devel`      | `boost-devel`       | NO       | C++ libraries   |
+| OpenSSL      | basically any | NO       | `libssl-dev`         | `openssl`    | `libressl-devel`   | `openssl-devel`     | NO       | sha256 sum      |
+| libzmq       | 3.0.0         | NO       | `libzmq3-dev`        | `zeromq`     | `zeromq-devel`     | `zeromq-devel`      | NO       | ZeroMQ library  |
+| OpenPGM      | ?             | NO       | `libpgm-dev`         | `libpgm`     |                    | `openpgm-devel`     | NO       | For ZeroMQ      |
+| libnorm[2]   | ?             | NO       | `libnorm-dev`        |              |                    |                     | YES      | For ZeroMQ      |
+| libunbound   | 1.4.16        | YES      | `libunbound-dev`     | `unbound`    | `unbound-devel`    | `unbound-devel`     | NO       | DNS resolver    |
+| libsodium    | ?             | NO       | `libsodium-dev`      | `libsodium`  | `libsodium-devel`  | `libsodium-devel`   | NO       | cryptography    |
+| libunwind    | any           | NO       | `libunwind8-dev`     | `libunwind`  | `libunwind-devel`  | `libunwind-devel`   | YES      | Stack traces    |
+| liblzma      | any           | NO       | `liblzma-dev`        | `xz`         | `liblzma-devel`    | `xz-devel`          | YES      | For libunwind   |
+| libreadline  | 6.3.0         | NO       | `libreadline6-dev`   | `readline`   | `readline-devel`   | `readline-devel`    | YES      | Input editing   |
+| ldns         | 1.6.17        | NO       | `libldns-dev`        | `ldns`       | `libldns-devel`    | `ldns-devel`        | YES      | SSL toolkit     |
+| expat        | 1.1           | NO       | `libexpat1-dev`      | `expat`      | `expat-devel`      | `expat-devel`       | YES      | XML parsing     |
+| GTest        | 1.5           | YES      | `libgtest-dev`[1]    | `gtest`      | `gtest-devel`      | `gtest-devel`       | YES      | Test suite      |
+| Doxygen      | any           | NO       | `doxygen`            | `doxygen`    | `doxygen`          | `doxygen`           | YES      | Documentation   |
+| Graphviz     | any           | NO       | `graphviz`           | `graphviz`   | `graphviz`         | `graphviz`          | YES      | Documentation   |
+| lrelease     | ?             | NO       | `qttools5-dev-tools` | `qt5-tools`  | `qt5-tools`        | `qt5-linguist`      | YES      | Translations    |
+| libhidapi    | ?             | NO       | `libhidapi-dev`      | `hidapi`     | `hidapi-devel`     | `hidapi-devel`      | YES      | Hardware wallet |
+| libusb       | ?             | NO       | `libusb-dev`         | `libusb`     | `libusb-devel`     | `libusb-devel`      | YES      | Hardware wallet |
+| libprotobuf  | ?             | NO       | `libprotobuf-dev`    | `protobuf`   | `protobuf-devel`   | `protobuf-devel`    | YES      | Hardware wallet |
+| protoc       | ?             | NO       | `protobuf-compiler`  | `protobuf`   | `protobuf`         | `protobuf-compiler` | YES      | Hardware wallet |
 
 
 [1] On Debian/Ubuntu `libgtest-dev` only includes sources and headers. You must
@@ -180,7 +211,7 @@ Install all dependencies at once on macOS with the provided Brewfile:
 ``` brew update && brew bundle --file=contrib/brew/Brewfile ```
 
 FreeBSD one liner for required to build dependencies
-```pkg install git gmake cmake pkgconf boost-libs cppzmq libsodium```
+```pkg install git gmake cmake pkgconf boost-libs libzmq libsodium```
 
 ### Cloning the repository
 
@@ -210,9 +241,6 @@ invokes cmake commands as needed.
     parallel build by running `make -j<number of threads>` instead of `make`. For
     this to be worthwhile, the machine should have one core and about 2GB of RAM
     available per thread.
-
-    *Note*: If cmake can not find zmq.hpp file on macOS, installing `zmq.hpp` from
-    https://github.com/zeromq/cppzmq to `/usr/local/include` should fix that error.
 
     *Note*: The instructions above will compile the most stable release of the
     Italo software. If you would like to use and test the most recent software,
@@ -311,13 +339,13 @@ If you are using the older Raspbian Jessie image, compiling Italo is a bit more 
 
 * Then, install the dependencies for Italo except `libunwind` and `libboost-all-dev`
 
-* Install the latest version of boost (this may first require invoking `apt-get remove --purge libboost*` to remove a previous version if you're not using a clean install):
+* Install the latest version of boost (this may first require invoking `apt-get remove --purge libboost*-dev` to remove a previous version if you're not using a clean install):
 
     ```bash
     cd
-    wget https://sourceforge.net/projects/boost/files/boost/1.64.0/boost_1_64_0.tar.bz2
-    tar xvfo boost_1_64_0.tar.bz2
-    cd boost_1_64_0
+    wget https://sourceforge.net/projects/boost/files/boost/1.72.0/boost_1_72_0.tar.bz2
+    tar xvfo boost_1_72_0.tar.bz2
+    cd boost_1_72_0
     ./bootstrap.sh
     sudo ./b2
     ```
@@ -423,6 +451,7 @@ application.
 
 ### On FreeBSD:
 
+<<<<<<< HEAD
 The project can be built from scratch by following instructions for Linux above. If you are running italo in a jail you need to add the flag: `allow.sysvipc=1` to your jail configuration, otherwise lmdb will throw the error message: `Failed to open lmdb environment: Function not implemented`.
 
 We expect to add Italo into the ports tree in the near future, which will aid in managing installations using ports or packages.
@@ -518,6 +547,16 @@ Build italo: `env DEVELOPER_LOCAL_TOOLS=1 BOOST_ROOT=/usr/local make release-sta
 #### OpenBSD >= 6.4
 
 You will need to add a few packages to your system. `pkg_add cmake gmake zeromq cppzmq libiconv boost`.
+=======
+The project can be built from scratch by following instructions for Linux above(but use `gmake` instead of `make`). 
+If you are running italo in a jail, you need to add `sysvsem="new"` to your jail configuration, otherwise lmdb will throw the error message: `Failed to open lmdb environment: Function not implemented`.
+
+Monero is also available as a port or package as 'italo-cli`.
+
+### On OpenBSD:
+
+You will need to add a few packages to your system. `pkg_add cmake gmake zeromq libiconv boost`.
+>>>>>>> italo/master
 
 The `doxygen` and `graphviz` packages are optional and require the xbase set.
 Running the test suite also requires `py-requests` package.
@@ -588,6 +627,11 @@ You can also cross-compile static binaries on Linux for Windows and macOS with t
   * Requires: `g++-aarch64-linux-gnu`
 * ```make depends target=riscv64-linux-gnu``` for RISC V 64 bit binaries.
   * Requires: `g++-riscv64-linux-gnu`
+* ```make depends target=x86_64-unknown-freebsd``` for freebsd binaries.
+  * Requires: `clang-8`
+* ```make depends target=arm-linux-android``` for 32bit android binaries
+* ```make depends target=aarch64-linux-android``` for 64bit android binaries
+
 
 The required packages are the names for each toolchain on apt. Depending on your distro, they may have different names.
 

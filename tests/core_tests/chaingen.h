@@ -47,6 +47,7 @@
 #include "include_base_utils.h"
 #include "common/boost_serialization_helper.h"
 #include "common/command_line.h"
+#include "common/threadpool.h"
 
 #include "cryptonote_basic/account_boost_serialization.h"
 #include "cryptonote_basic/cryptonote_basic.h"
@@ -115,7 +116,8 @@ struct event_visitor_settings
   {
     set_txs_keeped_by_block = 1 << 0,
     set_txs_do_not_relay = 1 << 1,
-    set_local_relay = 1 << 2
+    set_local_relay = 1 << 2,
+    set_txs_stem = 1 << 3
   };
 
   event_visitor_settings(int a_mask = 0)
@@ -516,7 +518,7 @@ public:
     , m_events(events)
     , m_validator(validator)
     , m_ev_index(0)
-    , m_tx_relay(cryptonote::relay_method::flood)
+    , m_tx_relay(cryptonote::relay_method::fluff)
   {
   }
 
@@ -547,9 +549,13 @@ public:
     {
       m_tx_relay = cryptonote::relay_method::none;
     }
+    else if (settings.mask & event_visitor_settings::set_txs_stem)
+    {
+      m_tx_relay = cryptonote::relay_method::stem;
+    }
     else
     {
-      m_tx_relay = cryptonote::relay_method::flood;
+      m_tx_relay = cryptonote::relay_method::fluff;
     }
 
     return true;
@@ -775,6 +781,7 @@ inline bool do_replay_events_get_core(std::vector<test_event_entry>& events, cry
 
   t_test_class validator;
   bool ret = replay_events_through_core<t_test_class>(c, events, validator);
+  tools::threadpool::getInstance().recycle();
 //  c.deinit();
   return ret;
 }

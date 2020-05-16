@@ -154,6 +154,7 @@ namespace cryptonote
     bool set_persistent_rpc_client_id(const std::vector<std::string> &args = std::vector<std::string>());
     bool set_auto_mine_for_rpc_payment_threshold(const std::vector<std::string> &args = std::vector<std::string>());
     bool set_credits_target(const std::vector<std::string> &args = std::vector<std::string>());
+    bool help_advanced(const std::vector<std::string> &args = std::vector<std::string>());
     bool help(const std::vector<std::string> &args = std::vector<std::string>());
     bool start_mining(const std::vector<std::string> &args);
     bool stop_mining(const std::vector<std::string> &args);
@@ -169,8 +170,9 @@ namespace cryptonote
     bool transfer(const std::vector<std::string> &args);
     bool locked_transfer(const std::vector<std::string> &args);
     bool locked_sweep_all(const std::vector<std::string> &args);
-    bool sweep_main(uint64_t below, bool locked, const std::vector<std::string> &args);
+    bool sweep_main(uint32_t account, uint64_t below, bool locked, const std::vector<std::string> &args);
     bool sweep_all(const std::vector<std::string> &args);
+    bool sweep_account(const std::vector<std::string> &args);
     bool sweep_below(const std::vector<std::string> &args);
     bool sweep_single(const std::vector<std::string> &args);
     bool sweep_unmixable(const std::vector<std::string> &args);
@@ -269,12 +271,12 @@ namespace cryptonote
     bool accept_loaded_tx(const std::function<size_t()> get_num_txes, const std::function<const tools::wallet2::tx_construction_data&(size_t)> &get_tx, const std::string &extra_message = std::string());
     bool accept_loaded_tx(const tools::wallet2::unsigned_tx_set &txs);
     bool accept_loaded_tx(const tools::wallet2::signed_tx_set &txs);
-    bool print_ring_members(const std::vector<tools::wallet2::pending_tx>& ptx_vector, std::ostream& ostr);
+    bool process_ring_members(const std::vector<tools::wallet2::pending_tx>& ptx_vector, std::ostream& ostr, bool verbose);
     std::string get_prompt() const;
     bool print_seed(bool encrypted);
     void key_images_sync_intern();
     void on_refresh_finished(uint64_t start_height, uint64_t fetched_blocks, bool is_init, bool received_money);
-    std::pair<std::string, std::string> show_outputs_line(const std::vector<uint64_t> &heights, uint64_t blockchain_height, uint64_t highlight_height = std::numeric_limits<uint64_t>::max()) const;
+    std::pair<std::string, std::string> show_outputs_line(const std::vector<uint64_t> &heights, uint64_t blockchain_height, uint64_t highlight_idx = std::numeric_limits<uint64_t>::max()) const;
     bool freeze_thaw(const std::vector<std::string>& args, bool freeze);
     bool prompt_if_old(const std::vector<tools::wallet2::pending_tx> &ptx_vector);
     bool on_command(bool (simple_wallet::*cmd)(const std::vector<std::string>&), const std::vector<std::string> &args);
@@ -347,7 +349,7 @@ namespace cryptonote
     virtual boost::optional<epee::wipeable_string> on_get_password(const char *reason);
     virtual void on_device_button_request(uint64_t code);
     virtual boost::optional<epee::wipeable_string> on_device_pin_request();
-    virtual boost::optional<epee::wipeable_string> on_device_passphrase_request(bool on_device);
+    virtual boost::optional<epee::wipeable_string> on_device_passphrase_request(bool & on_device);
     //----------------------------------------------------------
 
     friend class refresh_progress_reporter_t;
