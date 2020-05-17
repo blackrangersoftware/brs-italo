@@ -251,7 +251,6 @@ namespace cryptonote
   {
     uint64_t current_height;
     uint64_t cumulative_difficulty;
-    uint64_t cumulative_difficulty_top64;
     crypto::hash  top_id;
     uint8_t top_version;
     uint32_t pruning_seed;
@@ -259,10 +258,6 @@ namespace cryptonote
     BEGIN_KV_SERIALIZE_MAP()
       KV_SERIALIZE(current_height)
       KV_SERIALIZE(cumulative_difficulty)
-      if (is_store)
-        KV_SERIALIZE(cumulative_difficulty_top64)
-      else
-        KV_SERIALIZE_OPT(cumulative_difficulty_top64, (uint64_t)0)
       KV_SERIALIZE_VAL_POD_AS_BLOB(top_id)
       KV_SERIALIZE_OPT(top_version, (uint8_t)0)
       KV_SERIALIZE_OPT(pruning_seed, (uint32_t)0)
@@ -295,7 +290,6 @@ namespace cryptonote
       uint64_t start_height;
       uint64_t total_height;
       uint64_t cumulative_difficulty;
-      uint64_t cumulative_difficulty_top64;
       std::vector<crypto::hash> m_block_ids;
       std::vector<uint64_t> m_block_weights;
 
@@ -303,10 +297,6 @@ namespace cryptonote
         KV_SERIALIZE(start_height)
         KV_SERIALIZE(total_height)
         KV_SERIALIZE(cumulative_difficulty)
-        if (is_store)
-          KV_SERIALIZE(cumulative_difficulty_top64)
-        else
-          KV_SERIALIZE_OPT(cumulative_difficulty_top64, (uint64_t)0)
         KV_SERIALIZE_CONTAINER_POD_AS_BLOB(m_block_ids)
         KV_SERIALIZE_CONTAINER_POD_AS_BLOB(m_block_weights)
       END_KV_SERIALIZE_MAP()
