@@ -2,7 +2,7 @@
 /// @author rfree (current maintainer in italo.cc project)
 /// @brief This is the place to implement our handlers for protocol network actions, e.g. for ratelimit for download-requests
 
-// Copyright (c) 2014-2018, The Monero And Italo Project
+// Copyright (c) 2014-2019, The Italo Project
 // 
 // All rights reserved.
 // 
