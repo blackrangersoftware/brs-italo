@@ -2,7 +2,7 @@
 /// @author rfree (current maintainer in italo.cc project)
 /// @brief base for connection, contains e.g. the ratelimit hooks
 
-// Copyright (c) 2014-2018, The Monero And Italo Project
+// Copyright (c) 2014-2019, The Monero And Italo Project
 // 
 // All rights reserved.
 // 
