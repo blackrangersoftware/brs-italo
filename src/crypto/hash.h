@@ -103,7 +103,7 @@ namespace crypto {
       case cn_slow_hash_type::cn_r:
       default:
       {
-        cn_monero_slow_hash(data, length, reinterpret_cast<char *>(&hash), variant, 0/*prehashed*/, height);
+        cn_italo_slow_hash(data, length, reinterpret_cast<char *>(&hash), variant, 0/*prehashed*/, height);
       }
       break;
     }

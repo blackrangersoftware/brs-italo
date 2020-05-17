@@ -1,4 +1,4 @@
-// Copyright (c) 2019, The Monero Project
+// Copyright (c) 2019, The Italo Project
 //
 // All rights reserved.
 //
@@ -37,7 +37,8 @@ namespace cryptonote
   {
     none = 0, //!< Received via RPC with `do_not_relay` set
     local,    //!< Received via RPC; trying to send over i2p/tor, etc.
-    block,    //!< Received in block, takes precedence over others
-    flood     //!< Received/sent over public networks
+    stem,     //!< Received/send over network using Dandelion++ stem
+    fluff,    //!< Received/sent over network using Dandelion++ fluff
+    block     //!< Received in block, takes precedence over others
   };
 }

@@ -5,7 +5,7 @@ import os
 import subprocess
 import sys
 
-gsigs = 'https://github.com/italo-project/gitian.sigs.git'
+gsigs = 'https://github.com/italocoin-project/gitian.sigs.git'
 gbrepo = 'https://github.com/devrandom/gitian-builder.git'
 
 platforms = {'l': ['Linux', 'linux', 'tar.bz2'],
@@ -36,8 +36,11 @@ def setup():
     os.chdir('..')
     make_image_prog = ['bin/make-base-vm', '--suite', 'bionic', '--arch', 'amd64']
     if args.docker:
-        if not subprocess.call(['docker', '--help'], shell=False, stdout=subprocess.DEVNULL):
-            print("Please install docker first manually")
+        try:
+            subprocess.check_output(['docker', '--help'])
+        except:
+            print("ERROR: Could not find 'docker' command. Ensure this is in your PATH.")
+            sys.exit(1)
         make_image_prog += ['--docker']
     elif not args.kvm:
         make_image_prog += ['--lxc']
@@ -66,7 +69,7 @@ def rebuild():
         print('\nCompiling ' + args.version + ' ' + os_name)
         infile = 'inputs/italo/contrib/gitian/gitian-' + tag_name + '.yml'
         subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'italo='+args.commit, '--url', 'italo='+args.url, infile])
-        subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-linux', '--destination', '../sigs/', infile])
+        subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-'+tag_name, '--destination', '../sigs/', infile])
         subprocess.check_call('mv build/out/italo-*.' + suffix + ' ../out/'+args.version, shell=True)
         print('Moving var/install.log to var/install-' + tag_name + '.log')
         subprocess.check_call('mv var/install.log var/install-' + tag_name + '.log', shell=True)
@@ -104,18 +107,9 @@ def verify():
     global args, workdir
     os.chdir('builder')
 
-<<<<<<< HEAD
-    print('\nVerifying v'+args.version+' Linux\n')
-    subprocess.check_call(['bin/gverify', '-v', '-d', '../sigs/', '-r', args.version+'-linux', 'inputs/italo/contrib/gitian/gitian-linux.yml'])
-    print('\nVerifying v'+args.version+' Windows\n')
-    subprocess.check_call(['bin/gverify', '-v', '-d', '../sigs/', '-r', args.version+'-win', 'inputs/italo/contrib/gitian/gitian-win.yml'])
-    print('\nVerifying v'+args.version+' MacOS\n')
-    subprocess.check_call(['bin/gverify', '-v', '-d', '../sigs/', '-r', args.version+'-osx', 'inputs/italo/contrib/gitian/gitian-osx.yml'])
-=======
     for i, v in platforms:
         print('\nVerifying v'+args.version+' '+v[0]+'\n')
         subprocess.check_call(['bin/gverify', '-v', '-d', '../sigs/', '-r', args.version+'-'+v[1], 'inputs/italo/contrib/gitian/gitian-'+v[1]+'.yml'])
->>>>>>> italo/master
     os.chdir(workdir)
 
 def main():
@@ -166,9 +160,9 @@ def main():
     elif not args.kvm:
         os.environ['USE_LXC'] = '1'
         if not 'GITIAN_HOST_IP' in os.environ.keys():
-            os.environ['GITIAN_HOST_IP'] = '10.0.3.1'
+            os.environ['GITIAN_HOST_IP'] = '10.0.2.2'
         if not 'LXC_GUEST_IP' in os.environ.keys():
-            os.environ['LXC_GUEST_IP'] = '10.0.3.5'
+            os.environ['LXC_GUEST_IP'] = '10.0.2.5'
 
     # Disable MacOS build if no SDK found
     args.nomac = False

@@ -46,7 +46,7 @@ set(crypto_sources
   random.c
   skein.c
   tree-hash.c
-  cn_monero_slow_hash.c
+  cn_italo_slow_hash.c
   CryptonightR_JIT.c
   cn_heavy_hash_soft.cpp
   cn_heavy_hash_hard_intel.cpp
@@ -104,7 +104,7 @@ if (ARM)
 	   "Compute multiply using generic C implementation instead of ARM ASM" OFF)
   if(NO_OPTIMIZED_MULTIPLY_ON_ARM)
     message(STATUS "Using generic C implementation for multiply")
-    set_property(SOURCE cn_monero_slow_hash.c
+    set_property(SOURCE cn_italo_slow_hash.c
       PROPERTY COMPILE_DEFINITIONS "NO_OPTIMIZED_MULTIPLY_ON_ARM")
   endif()
 endif()
