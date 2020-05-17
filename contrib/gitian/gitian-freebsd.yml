@@ -32,7 +32,7 @@ packages:
 - "libprotobuf-dev"
 - "python3-zmq"
 remotes:
-- "url": "https://github.com/italo-project/italo.git"
+- "url": "https://github.com/italocoin-project/italo.git"
   "dir": "italo"
 files: []
 script: |
