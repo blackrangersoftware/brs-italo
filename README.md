@@ -110,6 +110,7 @@ Dates are provided in the format YYYY-MM-DD.
 
 | Software upgrade block height  | Date       | Fork version      | Minimum Italo version | Recommended Italo version | Details                                                                            |  
 | ------------------------------ | -----------| ----------------- | ---------------------- | -------------------------- | ---------------------------------------------------------------------------------- |
+<<<<<<< HEAD
 | 3000                           | 2018-03-28 | v2                | v11.0.0                | v11.0.0                    | Allow only RingCT transactions, allow only >= ringsize 5       |
 | 5000                           | 2018-04-02 | v7                | v11.1.0                | v11.1.0                    | Cryptonight variant 1, Adjusted minimum blocksize and fee algorithm  |
 | 5700                           | 2018-04-08 | v8                | v12.0.0                | v12.0.0                    | ringsize >= 7, sorted inputs, bulletproofs |
@@ -118,6 +119,20 @@ Dates are provided in the format YYYY-MM-DD.
 | 165000                         | 2018-12-05 | v11               | v13.0.0                | v13.0.4                    | Bug Fixes, Bulletproofs PAD, Fee per byte...  |
 | 324000                         | 2019-07-15 | v12               | v14.0.0                | v14.0.4                    | New PoW based on Cryptonight-R, New block weight algorithm, New slightly more efficient RingCT format...  |
 | 465000                         | 2020-01-27 | v13               | v15.0.0                | v15.0.0                    | New PoW based on random instructions, adapted to CPUs, New daemon RPC: flush_cache, get_public_nodes, set_bootstrap_daemon, Verification speedups...  |
+=======
+| 1009827                        | 2016-03-22 | v2                | v0.9.4                 | v0.9.4                     | Allow only >= ringsize 3, blocktime = 120 seconds, fee-free blocksize 60 kb       |
+| 1141317                        | 2016-09-21 | v3                | v0.9.4                 | v0.10.0                    | Splits coinbase into denominations  |
+| 1220516                        | 2017-01-05 | v4                | v0.10.1                | v0.10.2.1                  | Allow normal and RingCT transactions |
+| 1288616                        | 2017-04-15 | v5                | v0.10.3.0              | v0.10.3.1                  | Adjusted minimum blocksize and fee algorithm      |
+| 1400000                        | 2017-09-16 | v6                | v0.11.0.0              | v0.11.0.0                  | Allow only RingCT transactions, allow only >= ringsize 5      |
+| 1546000                        | 2018-04-06 | v7                | v0.12.0.0              | v0.12.3.0                  | Cryptonight variant 1, ringsize >= 7, sorted inputs
+| 1685555                        | 2018-10-18 | v8                | v0.13.0.0              | v0.13.0.4                  | max transaction size at half the penalty free block size, bulletproofs enabled, cryptonight variant 2, fixed ringsize [11](https://youtu.be/KOO5S4vxi0o)
+| 1686275                        | 2018-10-19 | v9                | v0.13.0.0              | v0.13.0.4                  | bulletproofs required
+| 1788000                        | 2019-03-09 | v10               | v0.14.0.0              | v0.14.1.2                  | New PoW based on Cryptonight-R, new block weight algorithm, slightly more efficient RingCT format
+| 1788720                        | 2019-03-10 | v11               | v0.14.0.0              | v0.14.1.2                  | forbid old RingCT transaction format
+| 1978433                        | 2019-11-30* | v12                | v0.15.0.0              | v0.16.0.0                  | New PoW based on RandomX, only allow >= 2 outputs, change to the block median used to calculate penalty, v1 coinbases are forbidden, rct sigs in coinbase forbidden, 10 block lock time for incoming outputs
+| XXXXXXX                        | XXX-XX-XX | XXX                | vX.XX.X.X              | vX.XX.X.X                  | XXX |
+>>>>>>> monero/release-v0.16
 
 X's indicate that these details have not been determined as of commit date.
 
@@ -201,9 +216,17 @@ invokes cmake commands as needed.
 * Install the dependencies
 * Change to the root of the source code directory, change to the most recent release branch, and build:
 
+<<<<<<< HEAD
         cd italo
         git checkout v0.13.0.4
         make
+=======
+    ```bash
+    cd monero
+    git checkout release-v0.16
+    make
+    ```
+>>>>>>> monero/release-v0.16
 
     *Optional*: If your machine has several cores and enough memory, enable
     parallel build by running `make -j<number of threads>` instead of `make`. For
@@ -269,12 +292,23 @@ Tested on a Raspberry Pi Zero with a clean install of minimal Raspbian Stretch (
 
 * If using an external hard disk without an external power supply, ensure it gets enough power to avoid hardware issues when syncing, by adding the line "max_usb_current=1" to /boot/config.txt
 
+<<<<<<< HEAD
 * Clone italo and checkout most recent release version:
 ```
         git clone https://github.com/italocoin-project/italo.git
 	cd italo
 	git checkout tags/v0.13.0.4
 ```
+=======
+* Clone monero and checkout the most recent release version:
+
+    ```bash
+    git clone https://github.com/monero-project/monero.git
+    cd monero
+    git checkout tags/v0.16.0.0
+    ```
+
+>>>>>>> monero/release-v0.16
 * Build:
 
     ```bash
@@ -385,9 +419,21 @@ application.
 	
         cd italo
 
+<<<<<<< HEAD
 * If you would like a specific [version/tag](https://github.com/italocoin-project/italo/tags), do a git checkout for that version. eg. 'v0.13.0.0'. If you dont care about the version and just want binaries from master, skip this step:
 	
         git checkout v0.13.0.4
+=======
+    ```bash
+    cd monero
+    ```
+
+* If you would like a specific [version/tag](https://github.com/monero-project/monero/tags), do a git checkout for that version. eg. 'v0.16.0.0'. If you don't care about the version and just want binaries from master, skip this step:
+	
+    ```bash
+    git checkout v0.16.0.0
+    ```
+>>>>>>> monero/release-v0.16
 
 * If you are on a 64-bit system, run:
 

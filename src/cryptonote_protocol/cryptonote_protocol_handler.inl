@@ -308,9 +308,9 @@ namespace cryptonote
       if (version >= 6 && version != hshd.top_version)
       {
         if (version < hshd.top_version && version == m_core.get_ideal_hard_fork_version())
-          MCLOG_RED(el::Level::Warning, "global", context << " peer claims higher version than we think (" <<
+          MDEBUG(context << " peer claims higher version than we think (" <<
               (unsigned)hshd.top_version << " for " << (hshd.current_height - 1) << " instead of " << (unsigned)version <<
-              ") - we may be forked from the network and a software upgrade may be needed");
+              ") - we may be forked from the network and a software upgrade may be needed, or that peer is broken or malicious");
         return false;
       }
     }
@@ -2343,8 +2343,7 @@ skip:
       MGINFO_YELLOW(ENDL << "**********************************************************************" << ENDL
         << "You are now synchronized with the network. You may now start italo-wallet-cli." << ENDL
         << ENDL
-        << "Use the \"help\" command to see a simplified list of available commands." << ENDL
-        << "Use the \"help_advanced\" command to see an advanced list of available commands." << ENDL
+        << "Use the \"help\" command to see the list of available commands." << ENDL
         << "**********************************************************************");
       m_sync_timer.pause();
       if (ELPP->vRegistry()->allowed(el::Level::Info, "sync-info"))
