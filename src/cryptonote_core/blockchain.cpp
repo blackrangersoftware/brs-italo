@@ -119,7 +119,7 @@ static const struct {
   difficulty_type diff_reset_value;
 } testnet_hard_forks[] = {
   // version 1 from the start of the blockchain
-    { 1, 1, 0, 1520965547, 0 },
+  { 1, 1, 0, 1520965547, 0 },
   // version 2 starts from block 3000.
   { 2, 5, 0, 1522235573, 100 },
   // version 7 starts from block 5000. Around 4 or 5 of April
@@ -135,7 +135,9 @@ static const struct {
   // Version 12 starts from block 324000. Around 07/14/2019
   { 12, 35, 0, 1563105600, 100 },
   // Version 13 starts from block 428293. Around 12/08/2019
-  { 13, 40, 0, 1575800581, 0 },
+  { 13, 40, 0, 1575800581, 100 },
+  // Version 14 starts from block 428293. Around 12/08/2019
+  { 14, 100, 0, 1592152407 , 1 },
 
 };
 static const uint64_t testnet_hard_fork_version_1_till = 4;
@@ -928,7 +930,7 @@ start:
   //    pop the oldest one from the list. This only requires 1x read per height instead
   //    of doing 735 (DIFFICULTY_BLOCKS_COUNT).
   bool check = false;
-  size_t difficulty_blocks_count = get_current_hard_fork_version() < 8 ? DIFFICULTY_BLOCKS_COUNT : get_current_hard_fork_version() < 9 ? DIFFICULTY_BLOCKS_COUNT_V1 : DIFFICULTY_BLOCKS_COUNT_V7;
+  size_t difficulty_blocks_count = get_current_hard_fork_version() >= HF_VERSION_CUCKOO ? DIFFICULTY_BLOCKS_COUNT_V14 : get_current_hard_fork_version() < 8 ? DIFFICULTY_BLOCKS_COUNT : get_current_hard_fork_version() < 9 ? DIFFICULTY_BLOCKS_COUNT_V1 : DIFFICULTY_BLOCKS_COUNT_V7;
   if (m_timestamps_and_difficulties_height != 0 && ((height - m_timestamps_and_difficulties_height) == 1) && m_timestamps.size() >= difficulty_blocks_count)
   {
     uint64_t index = height - 1;
@@ -998,7 +1000,7 @@ start:
   size_t target = get_difficulty_target();
   uint64_t last_diff_reset_height = m_hardfork->get_last_diff_reset_height(height);
   difficulty_type last_diff_reset_value = m_hardfork->get_last_diff_reset_value(height);
-  difficulty_type diff = get_current_hard_fork_version() < 8 ? next_difficulty(timestamps, difficulties, target, height, last_diff_reset_height, last_diff_reset_value) : get_current_hard_fork_version() < 9 ?  next_difficulty_v2(timestamps, difficulties, target, height, last_diff_reset_height, last_diff_reset_value) : next_difficulty_v7(timestamps, difficulties, target, height, last_diff_reset_height, last_diff_reset_value);
+  difficulty_type diff = get_current_hard_fork_version() >= HF_VERSION_CUCKOO ? next_difficulty(timestamps, difficulties, target, height, last_diff_reset_height, last_diff_reset_value) : get_current_hard_fork_version() < 8 ? next_difficulty(timestamps, difficulties, target, height, last_diff_reset_height, last_diff_reset_value) : get_current_hard_fork_version() < 9 ?  next_difficulty_v2(timestamps, difficulties, target, height, last_diff_reset_height, last_diff_reset_value) : next_difficulty_v7(timestamps, difficulties, target, height, last_diff_reset_height, last_diff_reset_value);
 
   CRITICAL_REGION_LOCAL1(m_difficulty_lock);
   m_difficulty_for_next_block_top_hash = top_hash;
@@ -1208,7 +1210,7 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
 
   // if the alt chain isn't long enough to calculate the difficulty target
   // based on its blocks alone, need to get more blocks from the main chain
-  size_t difficulty_blocks_count = get_ideal_hard_fork_version(bei.height) < 8 ? DIFFICULTY_BLOCKS_COUNT : get_ideal_hard_fork_version(bei.height) < 9 ? DIFFICULTY_BLOCKS_COUNT_V1 : DIFFICULTY_BLOCKS_COUNT_V7;
+  size_t difficulty_blocks_count = get_ideal_hard_fork_version(bei.height) >= HF_VERSION_CUCKOO ? DIFFICULTY_BLOCKS_COUNT_V14 : get_ideal_hard_fork_version(bei.height) < 8 ? DIFFICULTY_BLOCKS_COUNT : get_ideal_hard_fork_version(bei.height) < 9 ? DIFFICULTY_BLOCKS_COUNT_V1 : DIFFICULTY_BLOCKS_COUNT_V7;
   if(alt_chain.size()< difficulty_blocks_count)
   {
     CRITICAL_REGION_LOCAL(m_blockchain_lock);
@@ -1258,11 +1260,11 @@ difficulty_type Blockchain::get_next_difficulty_for_alternative_chain(const std:
   }
 
   // FIXME: This will fail if fork activation heights are subject to voting
-  size_t target = get_ideal_hard_fork_version(bei.height) < 2 ? DIFFICULTY_TARGET_V1 : get_ideal_hard_fork_version(bei.height) < 9 ? DIFFICULTY_TARGET_V2 : DIFFICULTY_TARGET_V9;
+  size_t target = get_ideal_hard_fork_version(bei.height) >= HF_VERSION_CUCKOO ? DIFFICULTY_TARGET_V14 : get_ideal_hard_fork_version(bei.height) < 2 ? DIFFICULTY_TARGET_V1 : get_ideal_hard_fork_version(bei.height) < 9 ? DIFFICULTY_TARGET_V2 : DIFFICULTY_TARGET_V9;
   uint64_t last_diff_reset_height = m_hardfork->get_last_diff_reset_height(bei.height);
   difficulty_type last_diff_reset_value = m_hardfork->get_last_diff_reset_value(bei.height);
   // calculate the difficulty target for the block and return it
-  return get_ideal_hard_fork_version(bei.height) < 8 ? next_difficulty(timestamps, cumulative_difficulties, target, bei.height, last_diff_reset_height, last_diff_reset_value) : get_ideal_hard_fork_version(bei.height) < 9 ?  next_difficulty_v2(timestamps, cumulative_difficulties, target, bei.height, last_diff_reset_height, last_diff_reset_value) : next_difficulty_v7(timestamps, cumulative_difficulties, target, bei.height, last_diff_reset_height, last_diff_reset_value);
+  return get_ideal_hard_fork_version(bei.height) >= HF_VERSION_CUCKOO ? next_difficulty(timestamps, cumulative_difficulties, target, bei.height, last_diff_reset_height, last_diff_reset_value) : get_ideal_hard_fork_version(bei.height) < 8 ? next_difficulty(timestamps, cumulative_difficulties, target, bei.height, last_diff_reset_height, last_diff_reset_value) : get_ideal_hard_fork_version(bei.height) < 9 ? next_difficulty_v2(timestamps, cumulative_difficulties, target, bei.height, last_diff_reset_height, last_diff_reset_value) : next_difficulty_v7(timestamps, cumulative_difficulties, target, bei.height, last_diff_reset_height, last_diff_reset_value);
 }
 //------------------------------------------------------------------
 // This function does a sanity check on basic things that all miner
@@ -3695,7 +3697,7 @@ bool Blockchain::is_tx_spendtime_unlocked(uint64_t unlock_time) const
   {
     //interpret as time
     uint64_t current_time = static_cast<uint64_t>(time(NULL));
-    if(current_time + (get_current_hard_fork_version() < 2 ? CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V1 : CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V2) >= unlock_time)
+    if(current_time + (get_current_hard_fork_version() >= HF_VERSION_CUCKOO ? CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V3 : get_current_hard_fork_version() < 2 ? CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V1 : CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V2) >= unlock_time)
       return true;
     else
       return false;
@@ -3795,8 +3797,8 @@ bool Blockchain::check_block_timestamp(std::vector<uint64_t>& timestamps, const 
 //   false otherwise
 bool Blockchain::check_block_timestamp(const block& b, uint64_t& median_ts) const
 {
-  uint64_t cryptonote_block_future_time_limit = get_current_hard_fork_version() < 9 ? CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT : CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V9;
-  uint64_t blockchain_timestamp_check_window = get_current_hard_fork_version() < 9 ? BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW : BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V9;
+  uint64_t cryptonote_block_future_time_limit = get_current_hard_fork_version() >= HF_VERSION_CUCKOO ? CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V14 : get_current_hard_fork_version() < 9 ? CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT : CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V9;
+  uint64_t blockchain_timestamp_check_window = get_current_hard_fork_version() >= HF_VERSION_CUCKOO ? BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V14 : get_current_hard_fork_version() < 9 ? BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW : BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V9;
   LOG_PRINT_L3("Blockchain::" << __func__);
   if(b.timestamp > get_adjusted_time() + cryptonote_block_future_time_limit)
   {
@@ -5195,7 +5197,7 @@ bool Blockchain::get_hard_fork_voting_info(uint8_t version, uint32_t &window, ui
 
 uint64_t Blockchain::get_difficulty_target() const
 {
-  return get_current_hard_fork_version() < 2 ? DIFFICULTY_TARGET_V1 : get_current_hard_fork_version() < 9 ? DIFFICULTY_TARGET_V2 : DIFFICULTY_TARGET_V9;
+  return get_current_hard_fork_version() < 2 ? DIFFICULTY_TARGET_V1 : get_current_hard_fork_version() < 9 ? DIFFICULTY_TARGET_V2 : get_current_hard_fork_version() >= HF_VERSION_CUCKOO ? DIFFICULTY_TARGET_V14 : DIFFICULTY_TARGET_V9;
 }
 
 std::map<uint64_t, std::tuple<uint64_t, uint64_t, uint64_t>> Blockchain:: get_output_histogram(const std::vector<uint64_t> &amounts, bool unlocked, uint64_t recent_cutoff, uint64_t min_count) const

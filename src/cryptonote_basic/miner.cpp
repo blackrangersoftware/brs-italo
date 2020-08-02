@@ -571,6 +571,18 @@ namespace cryptonote
       }
 
       b.nonce = nonce;
+      	
+      if (b.major_version >= HF_VERSION_CUCKOO)
+      {
+        uint32_t edges[48];
+		
+        blobdata bd = get_block_hashing_blob(b);
+        c29_find_edges(bd.data(), bd.size(), b.nonce, edges);
+						
+        for(int i = 0; i < 48; i++) b.cycle.data[i] = edges[i];
+								
+      }
+
       crypto::hash h;
       m_gbh(b, height, tools::get_max_concurrency(), h);
 

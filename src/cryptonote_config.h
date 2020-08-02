@@ -47,10 +47,12 @@
 #define CURRENT_BLOCK_MINOR_VERSION                     0
 #define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT              60*60*2
 #define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V9           60*10
+#define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V14          3*DIFFICULTY_TARGET_V14
 #define CRYPTONOTE_DEFAULT_TX_SPENDABLE_AGE             10
 
 #define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW               60
 #define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V9            11
+#define BLOCKCHAIN_TIMESTAMP_CHECK_WINDOW_V14           12
 
 // MONEY_SUPPLY - total number coins to be generated
 #define MONEY_SUPPLY                                    ((uint64_t)(-1))
@@ -81,6 +83,7 @@
 #define DIFFICULTY_TARGET_V1                            430  // seconds - before first fork
 #define DIFFICULTY_TARGET_V2                            180  // seconds
 #define DIFFICULTY_TARGET_V9                            120  // seconds - 9' fork
+#define DIFFICULTY_TARGET_V14                           15  // seconds
 #define DIFFICULTY_WINDOW                               720  // blocks
 #define DIFFICULTY_WINDOW_V1                            480 // blocks
 #define DIFFICULTY_WINDOW_V7                            60 // blocks
@@ -90,10 +93,12 @@
 #define DIFFICULTY_BLOCKS_COUNT                         DIFFICULTY_WINDOW + DIFFICULTY_LAG
 #define DIFFICULTY_BLOCKS_COUNT_V1                      DIFFICULTY_WINDOW_V1 + DIFFICULTY_LAG
 #define DIFFICULTY_BLOCKS_COUNT_V7                      DIFFICULTY_WINDOW_V7 + 1
+#define DIFFICULTY_BLOCKS_COUNT_V14                     DIFFICULTY_WINDOW
 
 
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V1   DIFFICULTY_TARGET_V1 * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V2   DIFFICULTY_TARGET_V9 * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
+#define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V3   DIFFICULTY_TARGET_V14 * CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS
 #define CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_BLOCKS       1
 
 
@@ -183,6 +188,7 @@
 #define HF_VERSION_ENFORCE_MIN_AGE              13
 #define RX_BLOCK_VERSION                        13
 #define HF_VERSION_EFFECTIVE_SHORT_TERM_MEDIAN_IN_PENALTY 13
+#define HF_VERSION_CUCKOO                       14
 
 #define PER_KB_FEE_QUANTIZATION_DECIMALS        8
 

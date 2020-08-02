@@ -4727,7 +4727,7 @@ crypto::secret_key wallet2::generate(const std::string& wallet_, const epee::wip
  {
    // -1 month for fluctuations in block time and machine date/time setup.
    // avg seconds per block
-   const int seconds_per_block = DIFFICULTY_TARGET_V9;
+   const int seconds_per_block = get_approximate_blockchain_height() >= HF_VERSION_CUCKOO ? DIFFICULTY_TARGET_V14 : DIFFICULTY_TARGET_V9;
    // ~num blocks per month
    const uint64_t blocks_per_month = 60*60*24*30/seconds_per_block;
 
@@ -6252,7 +6252,8 @@ bool wallet2::is_tx_spendtime_unlocked(uint64_t unlock_time, uint64_t block_heig
     // XXX: this needs to be fast, so we'd need to get the starting heights
     // from the daemon to be correct once voting kicks in
     uint64_t v2height = m_nettype == TESTNET ? (uint64_t)-1 : m_nettype == STAGENET ? (uint64_t)-1  : 3000;
-    uint64_t leeway = block_height < v2height ? CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V1 : CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V2;
+    uint64_t v14height = m_nettype == TESTNET ? (uint64_t)-1 : m_nettype == STAGENET ? (uint64_t)-1  : (uint64_t)-1; //TODO V14
+    uint64_t leeway = block_height >= v14height ? CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V3 : block_height < v2height ? CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V1 : CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V2; // CRYPTONOTE_LOCKED_TX_ALLOWED_DELTA_SECONDS_V3 needs to be added TODO
     if(current_time + leeway >= unlock_time)
       return true;
     else
