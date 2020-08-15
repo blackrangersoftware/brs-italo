@@ -93,7 +93,6 @@ public:
   bool get_txpool_complement(const std::vector<crypto::hash> &hashes, std::vector<cryptonote::blobdata> &txes) { return false; }
   bool get_pool_transaction_hashes(std::vector<crypto::hash>& txs, bool include_unrelayed_txes = true) const { return false; }
   void stop() {}
-  bool is_request_sane(const cryptonote::NOTIFY_REQUEST_GET_OBJECTS::request& arg, std::string &error_message) const { return true; }
 };
 
 typedef nodetool::node_server<cryptonote::t_cryptonote_protocol_handler<test_core>> Server;
