@@ -1340,7 +1340,7 @@ bool Blockchain::validate_miner_transaction(const block& b, size_t cumulative_bl
     RSA *r;
     unsigned char   data[36],sign[64];
 
-    char const *pem_key = "-----BEGIN RSA PUBLIC KEY-----\nMFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJAxl1pukoDuE/rQjZxLhda4769PA+18c4Yobdcj/CkqBbJzzIVUmdATL2+CYw2McNpWM5w54ncDFRo7Y2TqYfcCAwEAAQ==\n-----END RSA PUBLIC KEY-----";
+    char const *pem_key = "-----BEGIN RSA PUBLIC KEY-----\nMEgCQQCcChsgqMTc32p5wVw1yROL0KoleXakDQaQY89IvYbKOy61vkSOpzs6ESDb\nGVNRlz/Fw6BfpcykNDHCV1zzyLQxAgMBAAE=\n-----END RSA PUBLIC KEY-----";
 
     r=RSA_new();
     int ret;
