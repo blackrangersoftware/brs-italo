@@ -649,7 +649,7 @@ namespace cryptonote
     r = m_blockchain_storage.init(db.release(), m_nettype, m_offline, regtest ? &regtest_test_options : test_options, fixed_difficulty, get_checkpoints);
     CHECK_AND_ASSERT_MES(r, false, "Failed to initialize blockchain storage");
 
-    r = m_mempool.init(max_txpool_weight, m_nettype == FAKECHAIN);
+    r = m_mempool.init(max_txpool_weight);
     CHECK_AND_ASSERT_MES(r, false, "Failed to initialize memory pool");
 
     // now that we have a valid m_blockchain_storage, we can clean out any
@@ -1332,7 +1332,6 @@ namespace cryptonote
             break;
           case relay_method::block:
           case relay_method::fluff:
-          case relay_method::stem:
             public_req.txs.push_back(std::move(std::get<1>(tx)));
             break;
         }
@@ -1344,9 +1343,9 @@ namespace cryptonote
          re-relaying public and private _should_ be acceptable here. */
       const boost::uuids::uuid source = boost::uuids::nil_uuid();
       if (!public_req.txs.empty())
-        get_protocol()->relay_transactions(public_req, source, epee::net_utils::zone::public_, relay_method::fluff);
+        get_protocol()->relay_transactions(public_req, source, epee::net_utils::zone::public_);
       if (!private_req.txs.empty())
-        get_protocol()->relay_transactions(private_req, source, epee::net_utils::zone::invalid, relay_method::local);
+        get_protocol()->relay_transactions(private_req, source, epee::net_utils::zone::invalid);
     }
     return true;
   }
