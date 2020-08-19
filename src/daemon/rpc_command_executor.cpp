@@ -362,7 +362,6 @@ bool t_rpc_command_executor::show_difficulty() {
       return true;
     }
   }
-
   tools::success_msg_writer() <<   "BH: " << res.height
                               << ", TH: " << res.top_block_hash
                               << ", DIFF: " << res.difficulty
@@ -374,9 +373,18 @@ bool t_rpc_command_executor::show_difficulty() {
 
 static std::string get_mining_speed(cryptonote::difficulty_type hr,uint16_t hf)
 {
+  if(hf >= HF_VERSION_CUCKOO)
+  {
   if (hr>1e9) return (boost::format("%.2f GG/s") % (hr/1e9)).str();
   if (hr>1e6) return (boost::format("%.2f MG/s") % (hr/1e6)).str();
   if (hr>1e3) return (boost::format("%.2f kG/s") % (hr/1e3)).str();
+  }
+  else
+  {
+  if (hr>1e9) return (boost::format("%.2f GH/s") % (hr/1e9)).str();
+  if (hr>1e6) return (boost::format("%.2f MH/s") % (hr/1e6)).str();
+  if (hr>1e3) return (boost::format("%.2f kH/s") % (hr/1e3)).str();
+  }
   if(hf >= HF_VERSION_CUCKOO)
   {
     return (boost::format("%.0f G/s") % hr).str();
