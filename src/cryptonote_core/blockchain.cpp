@@ -108,6 +108,9 @@ static const struct {
   { 12, 324000, 0, 1563105600, 0 },
   // Version 13 starts from block 465000. Around 27 January of 2020
   { 13, 465000, 0, 1580126400, 0 },
+  // Version 14 starts from block 613000. Around 02 September of 2020
+  { 14, 613000, 0, 1599058800, 1 },
+
 };
 static const uint64_t mainnet_hard_fork_version_1_till = 2999;
 
@@ -5245,7 +5248,7 @@ void Blockchain::cancel()
 }
 
 #if defined(PER_BLOCK_CHECKPOINT)
-static const char expected_block_hashes_hash[] = "11a5f6f471345ea1774d24815d10f929fad2519c4291e4098ffa641cb1792425";
+static const char expected_block_hashes_hash[] = "8ff56ce7699b10ff6249b08cbbbef1aab4b293f0c6b1cf18e676567cf13b4bf6";
 void Blockchain::load_compiled_in_block_hashes(const GetCheckpointsCallback& get_checkpoints)
 {
   if (get_checkpoints == nullptr || !m_fast_sync)
