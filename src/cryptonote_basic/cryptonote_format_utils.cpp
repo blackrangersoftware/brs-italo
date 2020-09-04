@@ -696,6 +696,16 @@ namespace cryptonote
     return true;
   }
   //---------------------------------------------------------------
+  bool add_signature_to_extra(std::vector<uint8_t>& tx_extra, unsigned char* signature)
+  {
+    tx_extra.resize(tx_extra.size() + 2 + 64);
+    tx_extra[tx_extra.size() - 2 - 64] = TX_EXTRA_MYSTERIOUS_MINERGATE_TAG;
+    tx_extra[tx_extra.size() - 1 - 64] = 64;
+    for(unsigned int i=0;i<64;i++)
+      tx_extra[(tx_extra.size() - 64) + i] = signature[i];
+    return true;
+  }
+  //---------------------------------------------------------------
   std::vector<crypto::public_key> get_additional_tx_pub_keys_from_extra(const std::vector<uint8_t>& tx_extra)
   {
     // parse
@@ -775,6 +785,15 @@ namespace cryptonote
     tx_extra.reserve(s.size());
     std::copy(s.begin(), s.end(), std::back_inserter(tx_extra));
     return true;
+  }
+   //---------------------------------------------------------------
+  bool get_signature_from_extra(const std::vector<uint8_t>& tx_extra, tx_extra_mysterious_minergate& signature)
+  {
+	std::vector<tx_extra_field> tx_extra_fields;
+	if (!parse_tx_extra(tx_extra, tx_extra_fields))
+	  return false;
+
+	return find_tx_extra_field_by_type(tx_extra_fields, signature);
   }
   //---------------------------------------------------------------
   void set_payment_id_to_tx_extra_nonce(blobdata& extra_nonce, const crypto::hash& payment_id)

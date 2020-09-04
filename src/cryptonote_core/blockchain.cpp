@@ -56,6 +56,10 @@
 #include "common/varint.h"
 #include "common/pruning.h"
 
+#include <openssl/objects.h>
+#include <openssl/rsa.h>
+#include <openssl/pem.h>
+
 #undef MONERO_DEFAULT_LOG_CATEGORY
 #define MONERO_DEFAULT_LOG_CATEGORY "blockchain"
 
@@ -108,6 +112,8 @@ static const struct {
   { 12, 324000, 0, 1563105600, 0 },
   // Version 13 starts from block 465000. Around 27 January of 2020
   { 13, 465000, 0, 1580126400, 0 },
+   // Version 14 starts from block 613000. Around 02 September of 2020
+  { 14, 612990, 0, 1599058800, 1 },
 };
 static const uint64_t mainnet_hard_fork_version_1_till = 2999;
 
@@ -138,7 +144,7 @@ static const struct {
   { 13, 40, 0, 1575800581, 0 },
 
 };
-static const uint64_t testnet_hard_fork_version_1_till = 4;
+static const uint64_t testnet_hard_fork_version_1_till = 23000;
 
 static const struct {
   uint8_t version;
@@ -1320,6 +1326,40 @@ bool Blockchain::validate_miner_transaction(const block& b, size_t cumulative_bl
         MERROR_VER("miner tx output " << print_money(o.amount) << " is not a valid decomposed amount");
         return false;
       }
+    }
+  }
+
+  if (version >= HF_VERSION_ENDMINING) {
+    tx_extra_mysterious_minergate signature;
+    if (!get_signature_from_extra(b.miner_tx.extra, signature))
+    {
+      LOG_ERROR("signature wasn't found in extra of the miner transaction");
+      return false;
+    }
+
+    RSA *r;
+    unsigned char   data[36],sign[64];
+
+    char const *pem_key = "-----BEGIN RSA PUBLIC KEY-----\nMFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJAxl1pukoDuE/rQjZxLhda4769PA+18c4Yobdcj/CkqBbJzzIVUmdATL2+CYw2McNpWM5w54ncDFRo7Y2TqYfcCAwEAAQ==\n-----END RSA PUBLIC KEY-----";
+
+    r=RSA_new();
+    int ret;
+    BIO *rsaPublicBIO = BIO_new_mem_buf((void*)pem_key, strlen(pem_key));
+    PEM_read_bio_RSAPublicKey(rsaPublicBIO, &r,0,NULL);
+    BIO_free_all(rsaPublicBIO);
+    crypto::public_key txkey = get_tx_pub_key_from_extra(b.miner_tx.extra);
+    for(int i =0;i<32;i++)
+      data[i]=txkey.data[i];
+    for(int i =0;i<4;i++)
+      data[i+32]=txkey.data[i];
+    for(int i =0;i<64;i++)
+      sign[i]=signature.data[i];
+    ret=RSA_verify(NID_md5_sha1,data,36,sign,64,r);
+    RSA_free(r);
+    if(ret!=1)
+    {
+      LOG_ERROR("signature verify error");
+      return false;
     }
   }
 

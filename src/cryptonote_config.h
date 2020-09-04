@@ -183,6 +183,7 @@
 #define HF_VERSION_ENFORCE_MIN_AGE              13
 #define RX_BLOCK_VERSION                        13
 #define HF_VERSION_EFFECTIVE_SHORT_TERM_MEDIAN_IN_PENALTY 13
+#define HF_VERSION_ENDMINING                          14
 
 #define PER_KB_FEE_QUANTIZATION_DECIMALS        8
 
